@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Purpose</title>
+</head>
+<body>
+    <h2>Enter the purpose of your chatbot</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="purpose" placeholder="e.g., Customer Support" required />
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
