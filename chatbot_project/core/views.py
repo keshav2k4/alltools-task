@@ -1,20 +1,29 @@
 from django.shortcuts import render
-import openai
 from django.views.decorators.csrf import csrf_exempt
+import openai
 
-openai.api_key = 'your-openai-api-key'  # Replace with your actual OpenAI key
+openai.api_key = 'your_openai_api_key'  # Replace with your actual API key
+
+def chatbot_form(request):
+    return render(request, 'core/form.html')
 
 @csrf_exempt
-def page1(request):
+def generate_requirements(request):
     if request.method == 'POST':
         purpose = request.POST.get('purpose')
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # You can use a different model if needed
-            messages=[
-                {"role": "system", "content": "You're an expert chatbot creator."},
-                {"role": "user", "content": f"I want to make a chatbot for: {purpose}. What data do I need?"}
-            ]
-        )
-        data_requirements = response['choices'][0]['message']['content']
-        return render(request, 'page2.html', {'data_requirements': data_requirements})
-    return render(request, 'page1.html')
+
+        prompt = f"Given a chatbot for {purpose}, what data is needed to build it with 99% accuracy?"
+
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            output = response['choices'][0]['message']['content']
+        except Exception as e:
+            output = f"An error occurred while contacting ChatGPT: {str(e)}"
+
+        return render(request, 'core/result.html', {'response': output})
+    else:
+        return render(request, 'core/form.html')

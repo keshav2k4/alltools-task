@@ -1,0 +1,14 @@
+<!-- core/templates/core/form.html -->
+
+<!DOCTYPE html>
+<html>
+<head><title>Chatbot Purpose</title></head>
+<body>
+    <h1>Enter Chatbot Purpose</h1>
+    <form action="/generate/" method="post">
+        {% csrf_token %}
+        <input type="text" name="purpose" placeholder="e.g., Finance Bot" required>
+        <button type="submit">Generate Requirements</button>
+    </form>
+</body>
+</html>

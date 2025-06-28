@@ -1,6 +1,7 @@
 from django.urls import path
-from . import views
+from logic import views as logic_views
 
 urlpatterns = [
-    path('', views.page1, name='page1'),
+    path('', logic_views.chatbot_form, name='form'),
+    path('generate/', logic_views.generate_requirements, name='generate'),
 ]
