@@ -1,8 +1,6 @@
-# chatbot_project/urls.py
-
 from django.contrib import admin
 from django.urls import path
-from core import views as core_views
+from core import views as core_views  # ✅ important!
 
 urlpatterns = [
     path('admin/', admin.site.urls),
